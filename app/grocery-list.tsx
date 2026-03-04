@@ -2,6 +2,9 @@ import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { styles } from "./grocery-list.styles";
 
+import Searchbar from "../components/searchbar";
+import Textrow from "../components/textrow";
+
 //defines what a grocery item is
 type Item = {
   id: string;
@@ -58,7 +61,7 @@ export default function GroceryListScreen() {
 
       {/* Input Bar */}
       <View style={styles.inputRow}>
-        <TextInputBar value={input} onChange={setInput} onAdd={addItem} />
+        <Searchbar value={input} onChange={setInput} onAdd={addItem} />
       </View>
 
       {/* List */}
@@ -67,7 +70,7 @@ export default function GroceryListScreen() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.itemRow}>
-            <TextRow
+            <Textrow
               name={item.name}
               checked={item.checked}
               onToggle={() => toggleItem(item.id)}
@@ -77,64 +80,5 @@ export default function GroceryListScreen() {
         )}
       />
     </View>
-  );
-}
-
-/** Small local components (fine for now) **/
-import { TextInput, TouchableOpacity } from "react-native";
-
-//Display function for search bar
-//From the search bar (<TextInputBar />) pass these props
-function TextInputBar({
-  value,
-  onChange,
-  onAdd,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  onAdd: () => void;
-}) {
-  return (
-    <>
-      <TextInput
-        style={styles.input}
-        placeholder="Add ingredient..."
-        placeholderTextColor="#888"
-        value={value}
-        onChangeText={onChange}
-        onSubmitEditing={onAdd}
-        returnKeyType="done"
-      />
-      <TouchableOpacity style={styles.addButton} onPress={onAdd}>
-        <Text style={styles.addText}>Add</Text>
-      </TouchableOpacity>
-    </>
-  );
-}
-
-//Display function for ingredients
-function TextRow({
-  name,
-  checked,
-  onToggle,
-  onDelete,
-}: {
-  name: string;
-  checked: boolean;
-  onToggle: () => void;
-  onDelete: () => void;
-}) {
-  return (
-    <>
-      <TouchableOpacity onPress={onToggle}>
-        <Text style={[styles.itemText, checked && styles.checkedText]}>
-          {name}
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={onDelete}>
-        <Text style={styles.delete}>✕</Text>
-      </TouchableOpacity>
-    </>
   );
 }
