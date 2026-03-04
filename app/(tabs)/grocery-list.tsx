@@ -5,6 +5,7 @@ import { styles } from "./grocery-list.styles";
 //Seperate components
 import Searchbar from "../../components/searchbar";
 import Textrow from "../../components/textrow";
+import { useHousehold } from "../../src/household-context";
 
 //Firebase only stores collections (folders) and documents (file)
 //The structure for this application is
@@ -36,7 +37,8 @@ type Item = {
 
 export default function GroceryListScreen() {
   //Code to join a group
-  const householdId = "family-list";
+  const { householdId, loading } = useHousehold();
+  if (loading) return null;
 
   //What is typed in the search box
   const [input, setInput] = useState("");
