@@ -3,8 +3,8 @@ import { FlatList, Text, View } from "react-native";
 import { styles } from "./grocery-list.styles";
 
 //Seperate components
-import Searchbar from "../components/searchbar";
-import Textrow from "../components/textrow";
+import Searchbar from "../../components/searchbar";
+import Textrow from "../../components/textrow";
 
 //Firebase only stores collections (folders) and documents (file)
 //The structure for this application is
@@ -15,17 +15,17 @@ import Textrow from "../components/textrow";
 
 //All firebase imports
 import {
-    addDoc,
-    collection,
-    deleteDoc,
-    doc,
-    onSnapshot,
-    orderBy,
-    query,
-    serverTimestamp,
-    updateDoc,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
-import { db } from "../src/firebase";
+import { db } from "../../src/firebase";
 
 //What defines an item
 type Item = {

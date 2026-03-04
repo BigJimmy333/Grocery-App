@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity } from "react-native";
-import { styles } from "../app/grocery-list.styles";
+import { styles } from "../app/(tabs)/grocery-list.styles";
 
 export default function TextRow({
   name,
