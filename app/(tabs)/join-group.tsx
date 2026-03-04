@@ -2,6 +2,11 @@ import { useState } from "react";
 import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useHousehold } from "../../src/household-context";
 
+function makeGroupCode() {
+  // short, shareable code like: "grp-8f3a2c"
+  return Math.random().toString(36).substring(2, 6);
+}
+
 export default function JoinGroupScreen() {
   const { householdId, setHouseholdId, loading } = useHousehold();
   const [code, setCode] = useState("");
@@ -14,6 +19,12 @@ export default function JoinGroupScreen() {
     await setHouseholdId(clean);
     Alert.alert("Joined", `Now using group:\n\n${clean}`);
     setCode("");
+  }
+
+  async function createGroup() {
+    const newCode = makeGroupCode();
+    await setHouseholdId(newCode);
+    Alert.alert("Group created", `Share this code:\n\n${newCode}`);
   }
 
   return (
@@ -44,12 +55,29 @@ export default function JoinGroupScreen() {
           color: "white",
           fontSize: 18,
           fontWeight: "700",
-          marginBottom: 24,
+          marginBottom: 18,
         }}
       >
         {householdId}
       </Text>
 
+      {/* Create Group */}
+      <TouchableOpacity
+        onPress={createGroup}
+        style={{
+          backgroundColor: "#22c55e",
+          padding: 14,
+          borderRadius: 12,
+          alignItems: "center",
+          marginBottom: 24,
+        }}
+      >
+        <Text style={{ color: "white", fontWeight: "800" }}>
+          Create New Group
+        </Text>
+      </TouchableOpacity>
+
+      {/* Join Group */}
       <Text style={{ color: "#94a3b8", marginBottom: 8 }}>
         Join with a code:
       </Text>
@@ -71,7 +99,7 @@ export default function JoinGroupScreen() {
       <TouchableOpacity
         onPress={join}
         style={{
-          backgroundColor: "#22c55e",
+          backgroundColor: "#2b2f3a",
           padding: 14,
           borderRadius: 12,
           alignItems: "center",
@@ -81,8 +109,7 @@ export default function JoinGroupScreen() {
       </TouchableOpacity>
 
       <Text style={{ color: "#64748b", marginTop: 18 }}>
-        (For now, the “code” is just the householdId. Later we can
-        generate/share it properly.)
+        Create makes a new code, join switches to an existing code.
       </Text>
     </View>
   );

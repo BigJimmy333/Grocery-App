@@ -32,6 +32,16 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
+        name="join-group"
+        options={{
+          title: "Group",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="key-outline" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
         name="grocery-list"
         options={{
           title: "Groceries",
